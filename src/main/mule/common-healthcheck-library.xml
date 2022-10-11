@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="api-liveness-flow" doc:id="5891af44-d818-4dcf-aa86-3fbbed44df4d" >
+		<http:listener doc:name="GET:/live" doc:id="28452bda-3c4a-48fa-9bbf-d0a1aac46c09" config-ref="apiHttpListenerConfig" path="/live">
+			<http:error-response >
+				<http:body ><![CDATA[#[DEAD]]]></http:body>
+			</http:error-response>
+		</http:listener>
+		<set-payload value="LIVE" doc:name="LIVE" doc:id="f08e77e2-17dd-40e9-8105-b64078ba93c2" />
+	</flow>
+	<flow name="api-readiness-flow" doc:id="f89b2f4a-4b9f-4f11-87af-946e6e94247e" >
+		<http:listener doc:name="GET:/ready" doc:id="8a4810b9-17c4-4d66-bde9-3d76a30d872d" config-ref="apiHttpListenerConfig" path="/ready">
+			<http:error-response >
+				<http:body ><![CDATA[#[DEAD]]]></http:body>
+			</http:error-response>
+		</http:listener>
+		<flow-ref doc:name="dependency-liveness-status" doc:id="80b18b8a-ee81-4efc-a6db-5dab8767caae" name="dependency-liveness-status"/>
+		<set-payload value="READY" doc:name="READY" doc:id="fcd52ced-c6aa-4aa4-89a7-a1497493b557" />
+	</flow>
+</mule>

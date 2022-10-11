@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="apiHttpListenerConfig" doc:name="HTTP Listener config" doc:id="79568618-400a-464a-99b6-b915b826000f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<sub-flow name="dependency-liveness-status" doc:id="4d5c84d9-4fef-4524-bb62-bbefea09acf1" >
+		<logger level="INFO" doc:name="Logger" doc:id="a63e14fc-2705-4674-aa14-a8cead3ed6b4" />
+	</sub-flow>
+</mule>
